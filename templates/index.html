@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+<html lang = "en">
+  <head>
+    <title>Lead Scoring.html</title>
+    <meta charset = "UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./public/index.css" rel="stylesheet" type="text/css"/> 
+    <style>
+      h1 {text-align: center;}
+      p {text-align: left;}
+    </style>
+  </head>
+  <body>
+    <div id="bg">
+    <div>
+    <h1>Lead Scoring</h1>
+    </div>
+    <div>
+    <form>
+       <fieldset>
+          <legend>Input the feature values</legend>
+          <p>
+            <label>Total Visits</label>
+            <input id="total_visits" type="number" min="0"  name="total_visits" oninput="validity.valid||(value='');" />
+          </p>
+          <p>
+            <label>Total time spent on website</label>
+            <input id = "total_time_spent_on_website"  type="number" min="0" name="total_time" oninput="validity.valid||(value='');" />
+          </p>
+          <p>
+             <label>Lead Origin</label>
+             <span id="lead_origin_error"></span>
+             <select id = "lead_origin" required>
+               <option value="0" selected="selected">Select an Option</option>
+               <option value = "1">Landing Page Submission</option>
+               <option value = "2">API</option>
+               <option value = "3">Lead Add Form</option>
+               <option value = "4">Others</option>
+             </select>
+          </p>
+          <p>
+            <label>Lead Source</label>
+            <select id = "lead_source">
+              <option value="0" selected="selected">Select an Option</option>
+              <option value = "1">Direct Traffic</option>
+              <option value = "2">Olark Chat</option>
+              <option value = "3">Google</option>
+              <option value = "4">Reference</option>
+            </select>
+         </p>
+         <p>
+          <label>Specialization</label>
+          <select id = "specialization">
+            <option value="0" selected="selected">Select an Option</option>
+            <option value = "1">Business Administration</option>
+            <option value = "2">Supply Chain Management</option>
+            <option value = "3">IT Projects Management</option>
+            <option value = "4">Finance Management</option>
+            <option value = "5">Human Resource Management</option>
+            <option value = "6">Marketing Management</option>
+            <option value = "7">Banking,Investment And Insurance</option>
+            <option value = "8">Operations Management</option>
+            <option value = "9">E-Business</option>
+            <option value = "10">others</option>
+          </select>
+         </p>
+         <p>
+          <label>How did you hear about x education?</label>
+          <select id = "how_did_you_hear_about_x_education">
+            <option value="0" selected="selected">Select an Option</option>
+            <option value = "1">Online Search</option>
+            <option value = "2">Word Of Mouth</option>
+            <option value = "3">Student of SomeSchool</option>
+            <option value = "4">others</option>
+          </select>
+         </p>
+         <p>
+            <label>Current occupation</label>
+            <select id = "what_is_your_current_occupation">
+              <option value="0" selected="selected">Select an Option</option>
+              <option value = "1">Unemployed</option>
+              <option value = "2">Student</option>
+              <option value = "3">Working Professional</option>
+              <option value = "4">others</option>
+            </select>
+         </p>
+         <p>
+            <label>Tags</label>
+            <select id = "tags">
+              <option value="0" selected="selected">Select an Option</option>
+              <option value = "1">Interested in other courses</option>
+              <option value = "2">Ringing</option>
+              <option value = "3">Will revert after reading the email</option>
+              <option value = "4">Already a student</option>
+              <option value = "5">others</option>
+            </select>
+         </p>
+         <p>
+          <label>Lead Quality</label>
+          <select id = "lead_quality">
+            <option value="0" selected="selected">Select an Option</option>
+            <option value = "1">Low in Relevance</option>
+            <option value = "2">Not Sure</option>
+            <option value = "3">Might be</option>
+            <option value = "4">Worst</option>
+            <option value = "5">High in Relevance</option>
+          </select>
+         </p>
+         <p>
+            <label>Lead Profile</label>
+            <select id = "lead_profile">
+              <option value="0" selected="selected">Select an Option</option>
+              <option value = "1">Potential Lead</option>
+              <option value = "2">Other Leads</option>
+              <option value = "3">others</option>
+            </select>
+         </p>
+         <p>
+          <label>Last Notable Activity</label>
+          <select id = "last_notable_activity">
+            <option value="0" selected="selected">Select an Option</option>
+            <option value = "1">Modified</option>
+            <option value = "2">Email Opened</option>
+            <option value = "3">Email Link Clicked</option>
+            <option value = "4">Email Bounced</option>
+            <option value = "5">Unreachable</option>
+            <option value = "6">Unsubscribed</option>
+            <option value = "7">Had a Phone Conversation</option>
+            <option value = "8">Olark Chat Conversation</option>
+            <option value = "9">SMS Sent</option>
+            <option value = "10">Page Visited on Website</option>
+            <option value = "11">others</option>
+          </select>
+         </p>
+       </fieldset>
+    </form>
+  
+  </div>
+  
+  <div class="wrapper">
+    <button class="button" onclick="submit_data()">Predict</button><br>
+    <span id="out" style="color: rgb(0, 0, 0); font-size: 20px;margin: 5px;"></span>
+</div>
+    </div>
+  </body>
+  <script>
+    // Function called upon clicking predict button
+    function submit_data(){
+      let last_notable_activity = document.getElementById("last_notable_activity"); //targetting html element
+      last_notable_activity = last_notable_activity.options[last_notable_activity.selectedIndex].text //setting the value of html element inside a variable
+
+      let lead_quality = document.getElementById("lead_quality"); 
+      lead_quality = lead_quality.options[lead_quality.selectedIndex].text
+
+      let lead_profile = document.getElementById("lead_profile");
+      lead_profile = lead_profile.options[lead_profile.selectedIndex].text
+
+      let lead_origin = document.getElementById("lead_origin");
+      lead_origin = lead_origin.options[lead_origin.selectedIndex].text
+      if (lead_origin=="Select an Option"){
+        return document.getElementById('lead_origin_error').innerText = "Please select an option"
+      }
+
+      let lead_source = document.getElementById("lead_source");
+      lead_source = lead_source.options[lead_source.selectedIndex].text
+
+      let specialization = document.getElementById("specialization");
+      specialization = specialization.options[specialization.selectedIndex].text
+
+      let how_did_you_hear_about_x_education = document.getElementById("how_did_you_hear_about_x_education");
+      how_did_you_hear_about_x_education = how_did_you_hear_about_x_education.options[how_did_you_hear_about_x_education.selectedIndex].text
+
+      let what_is_your_current_occupation = document.getElementById("what_is_your_current_occupation");
+      what_is_your_current_occupation = what_is_your_current_occupation.options[what_is_your_current_occupation.selectedIndex].text
+
+      let tags = document.getElementById("tags");
+      tags = tags.options[tags.selectedIndex].text
+      
+
+      var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+
+//used to make server request
+      fetch("http://127.0.0.1:5000/predict",{
+        method:"POST",
+        body:JSON.stringify(   { 
+    "total_visits":[parseInt(document.getElementById("total_visits").value)],
+    "total_time_spent_on_website":[parseInt(document.getElementById("total_time_spent_on_website").value)],
+    "lead_origin":[lead_origin],
+    "lead_source":[lead_source],
+    "specialization":[specialization],
+    "how_did_you_hear_about_x_education":[how_did_you_hear_about_x_education],
+    "what_is_your_current_occupation":[what_is_your_current_occupation],
+    "tags":[tags],
+    "lead_quality":[lead_quality],
+    "lead_profile":[lead_profile],
+    "last_notable_activity":[last_notable_activity]
+   }),
+        headers: myHeaders
+      })
+
+      //resolving promise
+      .then(res => (res.text())).then(res=>{
+        console.log(res);
+        document.getElementById("out").innerText = parseInt(res)?'Converted':'Not Converted'})
+      //exception handling of promise
+      .catch(err => console.log(err))
+    }
+  </script>
+</html>
