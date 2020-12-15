@@ -9,6 +9,3 @@ To increase the efficiency in tracking hot leads we will apply machine learning.
 SCOPE: A calculated purchase probability is used by companies to solve different business problems, such as optimizing their sales processes and going about approaching the hot leads. This data can be the source of important competitive advantage by utilizing it in estimating a contact's purchase probability using predictive analytics.
 
 
-Variable categorization: 
-
-Numerical variables Count = 8 Categorical variables Count = 29
